@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            border: 2px black solid;
+        }
+
+        .stopwatch {
+            font-size: 100px;
+            gap: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        button {
+            width: 100px;
+            height: 50px;
+            font-weight: bolder;
+        }
+        body{
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .button{
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+            justify-content: center;
+        }
+        .main{
+            border: 2px white solid;
+            padding: 50px;
+            margin-top: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="stopwatch">
+            <div id="hr">00</div>
+            <div id="min">00</div>
+            <div id="sec">00</div>
+            <div id="milsec">00</div>
+        </div>
+        <div class="button">
+            <button id="start" onclick="go()">Start</button>
+            <button id="pause" onclick="stop()">Pause</button>
+            <button id="clear" onclick="remove()">Clear</button>
+        </div>
+    </div>
+</body>
+<script>
+    var sec = 0;
+    var min = 0;
+    var hr = 0;
+    var milsec = 0;
+    function go() {
+        document.getElementById("start").setAttribute('disabled', 'disabled')
+        watch = setInterval(() => {
+            milsec++;
+            if (milsec == 100) {
+                milsec = 0;
+                sec++;
+                if (sec == 60) {
+                    sec = 0;
+                    min++;
+                    document.getElementById("min").innerHTML = min + "m";
+                    if (min == 60) {
+                        min = 0;
+                        hr++;
+                        document.getElementById("hr").innerHTML=hr+"h";
+                    }
+                }
+            }
+            document.getElementById("milsec").innerHTML = milsec;
+            document.getElementById("sec").innerHTML = sec + "s";
+        },10)
+    }
+    function stop() {
+        document.getElementById("start").removeAttribute('disabled', 'disabled')
+        clearInterval(watch);
+    }
+    function remove(){
+    var sec = 0;
+    var min = 0;
+    var hr = 0;
+    var milsec = 0;
+    document.getElementById("milsec").innerHTML = milsec + "0";
+    document.getElementById("sec").innerHTML = sec + "0";
+    document.getElementById("hr").innerHTML = hr + "0";
+    document.getElementById("min").innerHTML = min + "0";
+    }
+</script>
+
+</html>
